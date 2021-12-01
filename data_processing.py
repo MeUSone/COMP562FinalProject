@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 from collections import defaultdict
 from nltk.corpus import stopwords
 import string
-import csv
 
 def tokenlize(filename):
     #Read data
@@ -18,7 +17,7 @@ def tokenlize(filename):
 
     #Get rid of stopwords and punctuation
     for a in range(len(data['text'])):
-        data['text'][a] = list(filter(lambda i: i not in stopwords.words() and i not in list(string.punctuation), data['text'][a]))
+        data['text'][a] = list(filter(lambda i: i.lower() not in stopwords.words() and i.lower() not in list(string.punctuation), data['text'][a]))
     #See distribution
     #plt.hist(data['target'])
     #plt.show()
@@ -40,7 +39,7 @@ def tokenlize(filename):
     plt.hist(list(frequent_word_non_disaster.items())[:10])
     plt.hist(list(frequent_word_disaster.items())[:10])
     plt.show()
-    data.to_csv('processed_data.csv',index=False)
+    data.to_csv('processed_data.csv',index=False,encoding='utf-8')
 
 
 
